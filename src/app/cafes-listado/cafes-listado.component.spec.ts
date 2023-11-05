@@ -52,9 +52,16 @@ describe('CafesListadoComponent', () => {
     expect(celdasPrimeraFila[0].textContent).toBe('Café Especial para tí');
     expect(celdasPrimeraFila[1].textContent).toBe('Blend');
     expect(celdasPrimeraFila[2].textContent).toBe('Angelópolis, Antioquia');
+  });
 
+  it('debe totalizar los cafés por el tipo de café', ()=>{
+    const totales = fixture.nativeElement.querySelectorAll('#detallePorTipo');
 
-  })
+    expect(totales.length).toBe(2);
+    expect(totales[0].textContent).toContain('Total Blend: 2');
+    expect(totales[1].textContent).toContain('Total Café de Origen: 1');
+
+  });
 
 
 
