@@ -1,11 +1,19 @@
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CafesListadoComponent } from './cafes-listado.component';
 import { Cafe } from './cafe';
+import { CafeService } from './cafe.service';
+import { of } from 'rxjs';
 
 
 describe('CafesListadoComponent', () => {
+  let component: CafesListadoComponent;
+  let fixture: ComponentFixture<CafesListadoComponent>
+  let cafeServiceMock;
+
   beforeEach(async () => {
+    cafeServiceMock = jasmine.createSpyObj(['obtenerCafes']);
+    cafeServiceMock.obtenerCafes.and.returnValue(of(cafesObtenidos));
     await TestBed.configureTestingModule({
       imports: [
         RouterTestingModule
@@ -13,11 +21,15 @@ describe('CafesListadoComponent', () => {
       declarations: [
         CafesListadoComponent
       ],
+      providers: [{provide: CafeService, useValue: cafeServiceMock}]
     }).compileComponents();
+
+    fixture = TestBed.createComponent(CafesListadoComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('El componente listado de cafes debe estar creado', () => {
-    const fixture = TestBed.createComponent(CafesListadoComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
@@ -30,5 +42,50 @@ describe('CafesListadoComponent', () => {
     expect(cafe.tipo).toBe("Café de origen");
     expect(cafe.region).toBe("Etiopía");
   });
+
+  it('listado de cafes debe tener todos los elementos que retorna el servicio', ()=>{
+    const filas = fixture.nativeElement.querySelectorAll('tbody tr');
+    const celdasPrimeraFila = filas[0].querySelectorAll('td');
+
+    expect(filas.length).toBe(3);
+    expect(filas[0].querySelectorAll('th')[0].textContent).toBe('1');
+    expect(celdasPrimeraFila[0].textContent).toBe('Café Especial para tí');
+    expect(celdasPrimeraFila[1].textContent).toBe('Blend');
+    expect(celdasPrimeraFila[2].textContent).toBe('Angelópolis, Antioquia');
+
+
+  })
+
+
+
+  let cafesObtenidos =  [
+      {
+          "id": 1,
+          "nombre": "Café Especial para tí",
+          "tipo": "Blend",
+          "region": "Angelópolis, Antioquia",
+          "sabor": "Panela, Durazno, Caramelo",
+          "altura": 1920,
+          "imagen": "https://cdn.shopify.com/s/files/1/0272/2873/3504/products/cafe-especial-para-ti-colores-cafe-colombiano-f_1_720x.jpg"
+      },
+      {
+          "id": 2,
+          "nombre": "Café Especial Navegante",
+          "tipo": "Café de Origen",
+          "region": "Guatapé, Antioquia",
+          "sabor": "Cítrico, Naranja, Cacao",
+          "altura": 1800,
+          "imagen": "https://cdn.shopify.com/s/files/1/0272/2873/3504/products/cafe-especial-navegante-cafe-colombiano-f_540x.png"
+      },
+      {
+          "id": 3,
+          "nombre": "Café Especial El Prístino",
+          "tipo": "Blend",
+          "region": "Chinchiná, Caldas",
+          "sabor": "Chocolate negro, Caramelo",
+          "altura": 1700,
+          "imagen": "https://cdn.shopify.com/s/files/1/0272/2873/3504/products/cafe-especial-pristino-1-cafe-colombiano-f_720x.png"
+      }
+  ]
 
 });

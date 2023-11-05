@@ -27,9 +27,3 @@ export class Cafe {
   }
 
 }
-/*
- "id": 1,
-        "nombre": "Café Especial para tí",
-        "tipo": "Blend",
-        "region": "Angelópolis, Antioquia",
-        */

@@ -1,3 +1,20 @@
-<p>
-  cafes-listado works!
-</p>
+<div class="table-responsive-sm">
+<table class="table">
+  <thead class="table-dark">
+    <tr>
+      <th cope="col">#</th>
+      <th cope="col">Nombre</th>
+      <th cope="col">Tipo</th>
+      <th cope="col">Región</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let cafe of cafes">
+      <th scope="row">{{cafe.id}}</th>
+      <td>{{cafe.nombre}}</td>
+      <td>{{cafe.tipo}}</td>
+      <td>{{cafe.region}}</td>
+    </tr>
+  </tbody>
+</table>
+</div>

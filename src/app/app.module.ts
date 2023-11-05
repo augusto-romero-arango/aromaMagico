@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CafesListadoModule } from './cafes-listado/cafes-listado.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -12,6 +13,7 @@ import { CafesListadoModule } from './cafes-listado/cafes-listado.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     CafesListadoModule
   ],
   providers: [],
